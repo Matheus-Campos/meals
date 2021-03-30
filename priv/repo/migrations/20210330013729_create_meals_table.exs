@@ -6,6 +6,8 @@ defmodule Meals.Repo.Migrations.CreateMealsTable do
       add :descricao, :string
       add :data, :utc_datetime
       add :calorias, :integer
+
+      timestamps()
     end
   end
 end
