@@ -8,6 +8,8 @@ defmodule Meals.Meal do
   @required_params [:descricao, :data, :calorias]
   @permitted_params @required_params ++ [:id]
 
+  @derive {Jason.Encoder, only: @permitted_params}
+
   schema "meals" do
     field :descricao, :string
     field :data, :utc_datetime

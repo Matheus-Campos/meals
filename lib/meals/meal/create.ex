@@ -1,17 +1,17 @@
 defmodule Meals.Meal.Create do
-  alias Ecto.Changeset
-  alias Meals.{Error, Meal, Repo}
+  alias Meals.{Meal, Repo}
 
   def call(params) do
     params
+    |> parse_date()
     |> Meal.changeset()
     |> Repo.insert()
-    |> handle_insert()
   end
 
-  defp handle_insert({:ok, %Meal{}} = result), do: result
-
-  defp handle_insert({:error, %Changeset{}}) do
-    {:error, Error.build(:not_found, "User not found")}
+  defp parse_date(%{"data" => data} = params) do
+    case DateTime.from_iso8601(data) do
+      {:ok, datetime, _} -> Map.put(params, "data", datetime)
+      {:error, _reason} -> params
+    end
   end
 end
