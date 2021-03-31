@@ -4,7 +4,7 @@ defmodule Meals.Meal.CreateTest do
   import Meals.Factory
 
   alias Ecto.Changeset
-  alias Meals.{Error, Meal}
+  alias Meals.Meal
   alias Meals.Meal.Create
 
   defp transform_map_keys_to_string(map) do
@@ -25,13 +25,13 @@ defmodule Meals.Meal.CreateTest do
     test "when there is some invalid params, returns an invalid changeset" do
       response =
         :meal_params
-        |> build(calorias: 0)
+        |> build(calorias: 0, data: "invalid date")
         |> transform_map_keys_to_string()
         |> Create.call()
 
       assert {:error, %Changeset{changes: %{calorias: 0}, valid?: false} = changeset} = response
 
-      expected_errors = %{calorias: ["must be greater than 0"]}
+      expected_errors = %{calorias: ["must be greater than 0"], data: ["is invalid"]}
 
       assert errors_on(changeset) == expected_errors
     end
