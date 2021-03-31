@@ -1,8 +1,11 @@
 defmodule MealsWeb.Router do
   use MealsWeb, :router
 
+  alias MealsWeb.Plugs.UUIDChecker
+
   pipeline :api do
     plug :accepts, ["json"]
+    plug UUIDChecker
   end
 
   scope "/api", MealsWeb do
