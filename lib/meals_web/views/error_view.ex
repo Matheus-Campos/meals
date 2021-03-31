@@ -1,6 +1,8 @@
 defmodule MealsWeb.ErrorView do
   use MealsWeb, :view
 
+  alias Ecto.Changeset
+
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
   # def render("500.json", _assigns) do
@@ -12,5 +14,19 @@ defmodule MealsWeb.ErrorView do
   # "Not Found".
   def template_not_found(template, _assigns) do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
+  end
+
+  def render("error.json", %{message: message}), do: %{message: message}
+
+  def render("bad_request.json", %{changeset: %Changeset{} = changeset}) do
+    %{errors: errors_on(changeset)}
+  end
+
+  defp errors_on(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
+      Regex.replace(~r"%{(\w+)}", message, fn _, key ->
+        opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()
+      end)
+    end)
   end
 end
