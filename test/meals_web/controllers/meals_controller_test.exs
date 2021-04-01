@@ -3,6 +3,8 @@ defmodule MealsWeb.MealsControllerTest do
 
   import Meals.Factory
 
+  alias Meals.Meal
+
   describe "create/2" do
     test "should create a meal successfully", %{conn: conn} do
       params = build(:meal_params)
@@ -40,4 +42,49 @@ defmodule MealsWeb.MealsControllerTest do
     end
   end
 
+  describe "show/2" do
+    test "should get a meal successfully", %{conn: conn} do
+      %Meal{id: meal_id} = insert(:meal)
+
+      response =
+        conn
+        |> get(Routes.meals_path(conn, :show, meal_id))
+        |> json_response(:ok)
+
+      assert %{
+               "meal" => %{
+                 "calorias" => 70,
+                 "data" => _data,
+                 "descricao" => "Risole de frango",
+                 "id" => _id
+               }
+             } = response
+    end
+
+    test "when there is an invalid param, returns an error", %{conn: conn} do
+      meal_id = "banana"
+
+      response =
+        conn
+        |> get(Routes.meals_path(conn, :show, meal_id))
+        |> json_response(:bad_request)
+
+      expected_response = %{"message" => "Invalid UUID format"}
+
+      assert response == expected_response
+    end
+
+    test "when the meal is not found, returns an error", %{conn: conn} do
+      %Meal{id: meal_id} = build(:meal)
+
+      response =
+        conn
+        |> get(Routes.meals_path(conn, :show, meal_id))
+        |> json_response(:not_found)
+
+      expected_response = %{"message" => "Meal not found"}
+
+      assert response == expected_response
+    end
+  end
 end
