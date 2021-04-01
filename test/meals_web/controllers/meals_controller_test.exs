@@ -87,4 +87,43 @@ defmodule MealsWeb.MealsControllerTest do
       assert response == expected_response
     end
   end
+
+  describe "delete/2" do
+    test "should delete a meal successfully", %{conn: conn} do
+      %Meal{id: meal_id} = insert(:meal)
+
+      response =
+        conn
+        |> delete(Routes.meals_path(conn, :delete, meal_id))
+        |> response(:no_content)
+
+      assert response == ""
+    end
+
+    test "when there is an invalid param, returns an error", %{conn: conn} do
+      meal_id = "banana"
+
+      response =
+        conn
+        |> delete(Routes.meals_path(conn, :delete, meal_id))
+        |> json_response(:bad_request)
+
+      expected_response = %{"message" => "Invalid UUID format"}
+
+      assert response == expected_response
+    end
+
+    test "when the meal is not found, returns an error", %{conn: conn} do
+      %Meal{id: meal_id} = build(:meal)
+
+      response =
+        conn
+        |> delete(Routes.meals_path(conn, :delete, meal_id))
+        |> json_response(:not_found)
+
+      expected_response = %{"message" => "Meal not found"}
+
+      assert response == expected_response
+    end
+  end
 end
