@@ -5,6 +5,28 @@ defmodule MealsWeb.MealsControllerTest do
 
   alias Meals.Meal
 
+  describe "index/2" do
+    test "should list meals successfully", %{conn: conn} do
+      insert(:meal)
+
+      response =
+        conn
+        |> get(Routes.meals_path(conn, :index))
+        |> json_response(:ok)
+
+      assert %{
+               "meals" => [
+                 %{
+                   "calorias" => 70,
+                   "data" => _data,
+                   "descricao" => "Risole de frango",
+                   "id" => "fef2d8c3-e41e-4315-a8a1-f54c7f915474"
+                 }
+               ]
+             } = response
+    end
+  end
+
   describe "create/2" do
     test "should create a meal successfully", %{conn: conn} do
       params = build(:meal_params)

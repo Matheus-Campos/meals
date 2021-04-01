@@ -6,6 +6,14 @@ defmodule MealsWeb.MealsController do
 
   action_fallback FallbackController
 
+  def index(conn, _params) do
+    meals = Meals.list_meals()
+
+    conn
+    |> put_status(:ok)
+    |> render("meals.json", meals: meals)
+  end
+
   def create(conn, params) do
     with {:ok, %Meal{id: meal_id} = meal} <- Meals.create_meal(params) do
       conn
