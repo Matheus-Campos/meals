@@ -23,6 +23,14 @@ defmodule MealsWeb.MealsController do
     end
   end
 
+  def update(conn, params) do
+    with {:ok, %Meal{} = meal} <- Meals.update_meal(params) do
+      conn
+      |> put_status(:ok)
+      |> render("meal.json", meal: meal)
+    end
+  end
+
   def delete(conn, %{"id" => id}) do
     with {:ok, %Meal{}} <- Meals.delete_by_id(id) do
       conn
