@@ -9,7 +9,7 @@ defmodule Meals.Meal do
   @foreign_key_type :binary_id
 
   @required_params [:descricao, :data, :calorias]
-  @permitted_params @required_params ++ [:id]
+  @permitted_params @required_params ++ [:id, :user]
 
   @derive {Jason.Encoder, only: @permitted_params}
 

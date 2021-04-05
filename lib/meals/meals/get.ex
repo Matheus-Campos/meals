@@ -1,8 +1,13 @@
 defmodule Meals.Meals.Get do
+  import Ecto.Query
+
   alias Meals.{Error, Meal, Repo}
 
   def by_id(id) do
-    Repo.get(Meal, id)
+    query = from meal in Meal, where: meal.id == ^id, preload: [:user]
+
+    query
+    |> Repo.one()
     |> handle_get()
   end
 
