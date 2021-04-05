@@ -3,7 +3,10 @@ defmodule Meals.Meal do
 
   import Ecto.Changeset
 
+  alias Meals.User
+
   @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
 
   @required_params [:descricao, :data, :calorias]
   @permitted_params @required_params ++ [:id]
@@ -15,13 +18,18 @@ defmodule Meals.Meal do
     field :data, :utc_datetime
     field :calorias, :integer
 
+    belongs_to :user, User
+
     timestamps()
   end
 
-  def changeset(struct \\ %__MODULE__{}, params) do
+  def changeset(struct, params, %User{} = user) do
     struct
     |> cast(params, @permitted_params)
     |> validate_required(@required_params)
     |> validate_number(:calorias, greater_than: 0)
+    |> put_assoc(:user, user)
   end
+
+  def changeset(params, %User{} = user), do: changeset(%__MODULE__{}, params, user)
 end
