@@ -25,5 +25,7 @@ defmodule Meals.User do
     |> validate_length(:cpf, is: 11)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:nome, min: 1)
+    |> unique_constraint([:email])
+    |> unique_constraint([:cpf])
   end
 end
