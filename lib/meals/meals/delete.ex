@@ -1,4 +1,4 @@
-defmodule Meals.Meal.Delete do
+defmodule Meals.Meals.Delete do
   alias Meals.{Error, Meal, Repo}
 
   def call(id) do

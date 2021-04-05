@@ -1,4 +1,4 @@
-defmodule Meals.Meal.List do
+defmodule Meals.Meals.List do
   alias Meals.{Meal, Repo}
 
   def call, do: Repo.all(Meal)

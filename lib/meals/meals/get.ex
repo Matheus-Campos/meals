@@ -1,4 +1,4 @@
-defmodule Meals.Meal.Get do
+defmodule Meals.Meals.Get do
   alias Meals.{Error, Meal, Repo}
 
   def by_id(id) do

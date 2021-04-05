@@ -1,9 +1,9 @@
 defmodule Meals do
-  alias Meals.Meal.Create
-  alias Meals.Meal.Delete
-  alias Meals.Meal.Get
-  alias Meals.Meal.List
-  alias Meals.Meal.Update
+  alias Meals.Meals.Create
+  alias Meals.Meals.Delete
+  alias Meals.Meals.Get
+  alias Meals.Meals.List
+  alias Meals.Meals.Update
 
   defdelegate create_meal(params), to: Create, as: :call
   defdelegate get_by_id(id), to: Get, as: :by_id

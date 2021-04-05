@@ -1,4 +1,4 @@
-defmodule Meals.Meal.Update do
+defmodule Meals.Meals.Update do
   alias Meals.{Error, Meal, Repo}
 
   def call(%{"id" => meal_id} = params) do
