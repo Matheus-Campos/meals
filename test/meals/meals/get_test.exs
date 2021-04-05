@@ -1,10 +1,10 @@
-defmodule Meals.Meal.GetTest do
+defmodule Meals.Meals.GetTest do
   use Meals.DataCase, async: true
 
   import Meals.Factory
 
   alias Meals.Meal
-  alias Meals.Meal.Get
+  alias Meals.Meals.Get
 
   describe "by_id/1" do
     test "when the meal is found, returns it" do

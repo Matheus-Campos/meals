@@ -1,11 +1,11 @@
-defmodule Meals.Meal.CreateTest do
+defmodule Meals.Meals.CreateTest do
   use Meals.DataCase, async: true
 
   import Meals.Factory
 
   alias Ecto.Changeset
   alias Meals.Meal
-  alias Meals.Meal.Create
+  alias Meals.Meals.Create
 
   defp transform_map_keys_to_string(map) do
     Enum.into(map, %{}, fn {key, value} -> {Atom.to_string(key), value} end)

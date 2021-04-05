@@ -1,10 +1,10 @@
-defmodule Meals.Meal.DeleteTest do
+defmodule Meals.Meals.DeleteTest do
   use Meals.DataCase, async: true
 
   import Meals.Factory
 
   alias Meals.{Error, Meal}
-  alias Meals.Meal.Delete
+  alias Meals.Meals.Delete
 
   describe "call/1" do
     test "when the meal is found, it is deleted" do

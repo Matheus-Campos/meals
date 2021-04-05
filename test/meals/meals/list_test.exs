@@ -1,9 +1,9 @@
-defmodule Meals.Meal.ListTest do
-  use Meals.DataCase
+defmodule Meals.Meals.ListTest do
+  use Meals.DataCase, async: true
 
   import Meals.Factory
 
-  alias Meals.Meal.List
+  alias Meals.Meals.List
 
   describe "call/0" do
     test "when there are meals, retuns them" do

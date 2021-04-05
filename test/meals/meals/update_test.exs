@@ -1,10 +1,10 @@
-defmodule Meals.Meal.UpdateTest do
+defmodule Meals.Meals.UpdateTest do
   use Meals.DataCase, async: true
 
   import Meals.Factory
 
   alias Meals.{Error, Meal}
-  alias Meals.Meal.Update
+  alias Meals.Meals.Update
 
   describe "call/1" do
     test "should update a meal successfully" do

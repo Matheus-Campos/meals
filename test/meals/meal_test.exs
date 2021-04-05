@@ -1,5 +1,5 @@
 defmodule Meals.MealTest do
-  use Meals.DataCase
+  use Meals.DataCase, async: true
 
   import Meals.Factory
 

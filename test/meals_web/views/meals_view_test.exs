@@ -1,5 +1,5 @@
 defmodule MealsWeb.MealsViewTest do
-  use MealsWeb.ConnCase
+  use MealsWeb.ConnCase, async: true
 
   import Phoenix.View
   import Meals.Factory
